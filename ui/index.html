@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/vue@3.1.4"></script>
+    <script src="app/main.js"></script>
+    <link href="styles/style.css" rel="stylesheet"></link>
+</head>
+
+<body>
+    <div id="business_proposal">
+        <div class="header">File business</div>
+        <div class="form_right">Name</div><div class="form_left"><input v-model="name" /></div>
+        <div class="form_right">Type</div>
+        <div class="form_left">
+            <select v-model="type">
+                <option disabled value="">Please select one</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+        </div>
+        <div class="form_right">Note</div><div class="form_left"><textarea v-model="note"></textarea></div>
+        <div class="footer">
+            <button v-on:click="sign">Sign proposal</button>
+        </div>
+    </div>
+</body>
+
+</html>

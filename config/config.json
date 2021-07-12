@@ -1,0 +1,19 @@
+{
+    "locale": {
+        "en": {
+            "file": "File business"
+        }
+    },
+    "showBlips": true,
+    "locations": [{
+        "id": "ch1",
+        "ped": "mp_f_forgery_01",
+        "blip": 176,
+        "blipColor": 32,
+        "blipName": "City Hall",
+        "heading": 181.27,
+        "x": -549.49,
+        "y": -190.01,
+        "z": 38.22
+    }]
+}
