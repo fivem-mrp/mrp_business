@@ -68,7 +68,8 @@ on('__cfx_nui:openFileForm', (data, cb) => {
 
     SetNuiFocus(true, true);
     SendNuiMessage(JSON.stringify({
-        type: 'show'
+        type: 'show',
+        char: MRP_CLIENT.GetPlayerData()
     }));
 });
 

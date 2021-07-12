@@ -1,0 +1,138 @@
+@font-face {
+    font-family: coolvetica_rg;
+    src: url(../fonts/coolvetica_rg.ttf);
+}
+
+@font-face {
+    font-family: hamilton;
+    src: url(../fonts/hamilton.ttf);
+}
+
+body {
+    overflow: hidden;
+}
+
+#business_proposal {
+    height: 100%;
+    text-align: left;
+    width: 100%;
+}
+
+.proposal_form {
+    font-family: coolvetica_rg;
+    color: #000000;
+    background-image: url(../img/grey-paper-texture.jpg);
+    background-repeat: repeat;
+    overflow: auto;
+    width: 500px;
+    height: 60%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.proposal_form input,
+.proposal_form textarea {
+    border-bottom: rgba(48, 69, 236, 0.12) dashed;
+    color: #3145EC;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background: none;
+    font-family: 'hamilton';
+    font-size: 32px;
+}
+
+.proposal_form .form_left textarea {
+    font-size: 20px;
+    resize: none;
+    margin: 0px;
+    width: 360px;
+    height: 300px;
+}
+
+.proposal_form select {
+    font-family: 'hamilton';
+    font-size: 30px;
+    width: 360px;
+    color: #3145EC;
+    background: none;
+    border: rgba(49, 69, 236, 0.12) solid 1px;
+}
+
+.form_left, .form_right {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.form_left {
+    font-family: hamilton;
+    color: #3145EC;
+    width: 370px;
+}
+
+.form_right {
+    font-size: 24px;
+    vertical-align: middle;
+    text-align: right;
+    width: 120px;
+    padding-right: 10px;
+}
+
+.form_row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.header {
+    font-size: 32px;
+    text-align: center;
+}
+
+.header, .form_row {
+    position: relative;
+    z-index: 10;
+}
+
+.form_bck {
+    background-image: url(../img/logos.png);
+    background-repeat: no-repeat;
+    width: 355px;
+    height: 300px;
+    background-position: -350px 0px;
+    position: absolute;
+    z-index: 1;
+    opacity: 0.1;
+    top: 162px;
+    right: 0px;
+}
+
+.footer button {
+    border-bottom: rgba(48, 69, 236, 0.12) dashed;
+    color: #3145EC;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background: none;
+    font-family: 'hamilton';
+    font-size: 32px;
+}
+
+.footer {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.footer2 {
+    text-align: right;
+    padding-right: 10px;
+    display: inline-block;
+}
+
+.footer2 div {
+    text-align: center;
+}

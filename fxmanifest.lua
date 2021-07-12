@@ -16,6 +16,9 @@ files {
     'ui/styles/*.css',
     'ui/*.html',
     'ui/app/*.js',
+    'ui/img/*.jpg',
+    'ui/img/*.png',
+    'ui/fonts/*.ttf',
 }
 
 client_scripts {

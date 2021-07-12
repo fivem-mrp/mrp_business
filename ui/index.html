@@ -11,20 +11,32 @@
 
 <body>
     <div id="business_proposal">
-        <div class="header">File business</div>
-        <div class="form_right">Name</div><div class="form_left"><input v-model="name" /></div>
-        <div class="form_right">Type</div>
-        <div class="form_left">
-            <select v-model="type">
-                <option disabled value="">Please select one</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-            </select>
-        </div>
-        <div class="form_right">Note</div><div class="form_left"><textarea v-model="note"></textarea></div>
-        <div class="footer">
-            <button v-on:click="sign">Sign proposal</button>
+        <div class="proposal_form">
+            <div class="form_bck"></div>
+            <div class="header">Los Santos business proposal</div>
+            <div class="form_row">
+                <div class="form_right">Name</div><div class="form_left"><input v-model="name" /></div>
+            </div>
+            <div class="form_row">
+                <div class="form_right">Type</div>
+                <div class="form_left">
+                    <select v-model="type">
+                        <option disabled value="">Please select one</option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_right">Note</div><div class="form_left"><textarea v-model="note"></textarea></div>
+            </div>
+            <div class="footer">
+                <div class="footer2">
+                    <button v-on:click="sign">{{creatorName}} {{creatorSurname}}</button>
+                    <div>sign here</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
