@@ -10,6 +10,7 @@ $(document).ready(() => {
                 creatorSurname: '',
                 creatorName: '',
                 canApprove: true, //TODO
+                approvalSignature: '',
                 view: 0,
                 typeOptions: {
                     delivery: "Delivery",
@@ -38,6 +39,7 @@ $(document).ready(() => {
                 this.view = 0;
                 this.creatorName = '';
                 this.creatorSurname = '';
+                this.approvalSignature = '';
                 this.canApprove = true; //TODO
             },
             handleMessage(eventData) {
@@ -65,6 +67,7 @@ $(document).ready(() => {
                         let sign = eventData.doc.creatorSignature.split(' ');
                         this.creatorName = sign[0];
                         this.creatorSurname = sign[1];
+                        this.approvalSignature = eventData.char.name + ' ' + eventData.char.surname;
                         $('#business_proposal').show();
                         break;
                     default:

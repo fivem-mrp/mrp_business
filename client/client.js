@@ -65,7 +65,8 @@ onNet('mrp:business:client:view', (doc) => {
     SetNuiFocus(true, true);
     SendNuiMessage(JSON.stringify({
         type: 'view',
-        doc: doc
+        doc: doc,
+        char: MRP_CLIENT.GetPlayerData()
     }));
 });
 
