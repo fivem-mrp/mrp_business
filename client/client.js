@@ -59,6 +59,16 @@ setInterval(() => {
     }
 }, 0);
 
+onNet('mrp:business:client:view', (doc) => {
+    MRP_CLIENT.setPlayerMetadata("inMenu", true);
+
+    SetNuiFocus(true, true);
+    SendNuiMessage(JSON.stringify({
+        type: 'view',
+        doc: doc
+    }));
+});
+
 RegisterNuiCallbackType('openFileForm');
 on('__cfx_nui:openFileForm', (data, cb) => {
     cb({});
@@ -71,6 +81,14 @@ on('__cfx_nui:openFileForm', (data, cb) => {
         type: 'show',
         char: MRP_CLIENT.GetPlayerData()
     }));
+});
+
+RegisterNuiCallbackType('close');
+on('__cfx_nui:close', (data, cb) => {
+    cb({});
+
+    SetNuiFocus(false, false);
+    MRP_CLIENT.setPlayerMetadata("inMenu", false);
 });
 
 let docData = null;

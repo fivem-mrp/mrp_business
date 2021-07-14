@@ -9,6 +9,7 @@ $(document).ready(() => {
                 type: '',
                 creatorSurname: '',
                 creatorName: '',
+                view: 0,
                 typeOptions: {
                     delivery: "Delivery",
                     retail: "Retail"
@@ -18,22 +19,50 @@ $(document).ready(() => {
         methods: {
             sign() {
                 $('#business_proposal').hide();
-                $.post('https://mrp_business/printForm', JSON.stringify({
-                    name: this.name,
-                    note: this.note,
-                    type: this.type,
-                    creatorSignature: this.creatorName + ' ' + this.creatorSurname
-                }));
+                if (this.view == 1) {
+                    $.post('https://mrp_business/close', JSON.stringify({}));
+                } else {
+                    $.post('https://mrp_business/printForm', JSON.stringify({
+                        name: this.name,
+                        note: this.note,
+                        type: this.type,
+                        creatorSignature: this.creatorName + ' ' + this.creatorSurname
+                    }));
+                }
+            },
+            resetData() {
+                this.name = '';
+                this.note = '';
+                this.type = '';
+                this.view = 0;
+                this.creatorName = '';
+                this.creatorSurname = '';
             },
             handleMessage(eventData) {
                 switch (eventData.type) {
                     case "show":
                         $('#business_proposal').show();
+                        this.resetData();
                         this.creatorName = eventData.char.name;
                         this.creatorSurname = eventData.char.surname;
                         break;
                     case "hide":
+                        this.resetData();
                         $('#business_proposal').hide();
+                        break;
+                    case "view":
+                        if (!eventData.doc)
+                            return;
+
+                        this.view = 1;
+
+                        this.name = eventData.doc.name;
+                        this.note = eventData.doc.note;
+                        this.type = eventData.doc.type;
+                        let sign = eventData.doc.creatorSignature.split(' ');
+                        this.creatorName = sign[0];
+                        this.creatorSurname = sign[1];
+                        $('#business_proposal').show();
                         break;
                     default:
                         break;
@@ -49,5 +78,15 @@ $(document).ready(() => {
         var eventData = event.data;
         if (eventData)
             vm.handleMessage(eventData);
+    });
+
+    $(document).keydown(function(e) {
+        //on ESC close
+        if (e.keyCode == 27) {
+            vm.handleMessage({
+                type: 'hide'
+            });
+            $.post('https://mrp_business/close', JSON.stringify({}));
+        }
     });
 });

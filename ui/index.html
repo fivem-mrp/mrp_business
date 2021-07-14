@@ -15,19 +15,19 @@
             <div class="form_bck"></div>
             <div class="header">Los Santos business proposal</div>
             <div class="form_row">
-                <div class="form_right">Name</div><div class="form_left"><input v-model="name" /></div>
+                <div class="form_right">Name</div><div class="form_left"><input v-model="name" :disabled="view == 1"/></div>
             </div>
             <div class="form_row">
                 <div class="form_right">Type</div>
                 <div class="form_left">
-                    <select v-model="type">
+                    <select v-model="type" :disabled="view == 1">
                         <option disabled value="">Please select one</option>
                         <option v-for="(value, name) in typeOptions" v-bind:value="name">{{value}}</option>
                     </select>
                 </div>
             </div>
             <div class="form_row">
-                <div class="form_right">Note</div><div class="form_left"><textarea v-model="note"></textarea></div>
+                <div class="form_right">Note</div><div class="form_left"><textarea v-model="note" :disabled="view == 1"></textarea></div>
             </div>
             <div class="footer">
                 <div class="footer2">
