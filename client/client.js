@@ -89,6 +89,9 @@ on('__cfx_nui:close', (data, cb) => {
 
     SetNuiFocus(false, false);
     MRP_CLIENT.setPlayerMetadata("inMenu", false);
+    let ped = PlayerPedId();
+    ClearPedTasks(ped);
+    MRP_CLIENT.clearProps();
 });
 
 let docData = null;
