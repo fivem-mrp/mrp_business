@@ -22,9 +22,7 @@
                 <div class="form_left">
                     <select v-model="type">
                         <option disabled value="">Please select one</option>
-                        <option>A</option>
-                        <option>B</option>
-                        <option>C</option>
+                        <option v-for="(value, name) in typeOptions" v-bind:value="name">{{value}}</option>
                     </select>
                 </div>
             </div>

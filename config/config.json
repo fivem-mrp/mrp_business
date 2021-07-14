@@ -1,9 +1,14 @@
 {
     "locale": {
         "en": {
-            "file": "File business"
+            "file": "File business",
+            "business_proposal_pay": "You are about to pay $${business_proposal_cost} are you OK with that?",
+            "ok": "OK",
+            "cancel": "Cancel",
+            "business_proposal_poor_no_money": "You are poor you can't afford $${business_proposal_cost}"
         }
     },
+    "businessProposalPrice": 20000,
     "showBlips": true,
     "locations": [{
         "id": "ch1",

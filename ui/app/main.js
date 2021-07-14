@@ -4,17 +4,26 @@ $(document).ready(() => {
     const BusinessProposal = {
         data() {
             return {
-                name: 'name',
-                note: 'note',
+                name: '',
+                note: '',
                 type: '',
                 creatorSurname: '',
-                creatorName: ''
+                creatorName: '',
+                typeOptions: {
+                    delivery: "Delivery",
+                    retail: "Retail"
+                }
             }
         },
         methods: {
             sign() {
                 $('#business_proposal').hide();
-                $.post('https://mrp_business/close', JSON.stringify({}));
+                $.post('https://mrp_business/printForm', JSON.stringify({
+                    name: this.name,
+                    note: this.note,
+                    type: this.type,
+                    creatorSignature: this.creatorName + ' ' + this.creatorSurname
+                }));
             },
             handleMessage(eventData) {
                 switch (eventData.type) {
@@ -37,7 +46,6 @@ $(document).ready(() => {
     let vm = app.mount('#business_proposal');
 
     window.addEventListener('message', function(event) {
-        console.log(vm.name);
         var eventData = event.data;
         if (eventData)
             vm.handleMessage(eventData);

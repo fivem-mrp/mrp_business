@@ -21,12 +21,15 @@ files {
     'ui/fonts/*.ttf',
 }
 
-client_scripts {
+shared_scripts {
     '@mrp_core/shared/debug.js',
+    '@mrp_core/shared/MRPShared.lua',
+}
+
+client_scripts {
     'client/*.js',
 }
 
 server_scripts {
-    '@mrp_core/shared/debug.js',
     'server/*.js',
 }

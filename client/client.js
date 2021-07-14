@@ -73,10 +73,49 @@ on('__cfx_nui:openFileForm', (data, cb) => {
     }));
 });
 
-RegisterNuiCallbackType('close');
-on('__cfx_nui:close', (data, cb) => {
+let docData = null;
+RegisterNuiCallbackType('printForm');
+on('__cfx_nui:printForm', (data, cb) => {
     cb({});
 
     SetNuiFocus(false, false);
     MRP_CLIENT.setPlayerMetadata("inMenu", false);
+
+    console.log(`Print business proposal with data ${JSON.stringify(data)}`);
+
+    let char = MRP_CLIENT.GetPlayerData();
+
+    if (char.stats.cash < config.businessProposalPrice) {
+        emitNet('chat:addMessage', source, {
+            color: [255, 255, 255],
+            multiline: true,
+            args: [locale.business_proposal_poor_no_money.replace('${business_proposal_cost}', config.businessProposalPrice)]
+        });
+        return;
+    }
+
+    docData = data;
+
+    emit('mrp:popup', {
+        message: locale.business_proposal_pay.replace('${business_proposal_cost}', config.businessProposalPrice),
+        actions: [{
+            text: locale.ok,
+            url: 'https://mrp_business/business_proposal_pay'
+        }, {
+            text: locale.cancel,
+            url: 'https://mrp_business/business_proposal_cancel'
+        }]
+    });
+});
+
+RegisterNuiCallbackType('business_proposal_pay');
+on('__cfx_nui:business_proposal_pay', (data, cb) => {
+    cb({});
+    emitNet('mrp:business:server:createDocument', GetPlayerServerId(PlayerId()), docData);
+});
+
+RegisterNuiCallbackType('business_proposal_cancel');
+on('__cfx_nui:business_proposal_cancel', (data, cb) => {
+    cb({});
+    docData = null;
 });
