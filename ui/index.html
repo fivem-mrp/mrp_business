@@ -30,6 +30,10 @@
                 <div class="form_right">Note</div><div class="form_left"><textarea v-model="note" :disabled="view == 1"></textarea></div>
             </div>
             <div class="footer">
+                <div class="footer3" v-show="canApprove">
+                    <button v-on:click="approve">{{creatorName}} {{creatorSurname}}</button>
+                    <div>sign of approval</div>
+                </div>
                 <div class="footer2">
                     <button v-on:click="sign">{{creatorName}} {{creatorSurname}}</button>
                     <div>sign here</div>

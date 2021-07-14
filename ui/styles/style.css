@@ -133,6 +133,13 @@ body {
     display: inline-block;
 }
 
+.footer3 div,
 .footer2 div {
     text-align: center;
+}
+
+.footer3 {
+    text-align: left;
+    padding-right: 10px;
+    display: inline-block;
 }

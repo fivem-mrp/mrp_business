@@ -9,6 +9,7 @@ $(document).ready(() => {
                 type: '',
                 creatorSurname: '',
                 creatorName: '',
+                canApprove: true, //TODO
                 view: 0,
                 typeOptions: {
                     delivery: "Delivery",
@@ -37,12 +38,14 @@ $(document).ready(() => {
                 this.view = 0;
                 this.creatorName = '';
                 this.creatorSurname = '';
+                this.canApprove = true; //TODO
             },
             handleMessage(eventData) {
                 switch (eventData.type) {
                     case "show":
                         $('#business_proposal').show();
                         this.resetData();
+                        this.canApprove = false;
                         this.creatorName = eventData.char.name;
                         this.creatorSurname = eventData.char.surname;
                         break;
