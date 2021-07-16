@@ -6,11 +6,13 @@
             "ok": "OK",
             "cancel": "Cancel",
             "business_proposal_poor_no_money": "You are poor you can't afford $${business_proposal_cost}",
-            "no_document":"No document found"
+            "no_document":"No document found",
+            "documentApproved": "You approved the business proposal and the document has been removed"
         }
     },
     "businessProposalPrice": 20000,
     "showBlips": true,
+    "ownerRole": "owner",
     "locations": [{
         "id": "ch1",
         "ped": "mp_f_forgery_01",

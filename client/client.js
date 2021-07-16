@@ -27,6 +27,8 @@ if (config.showBlips) {
     MRP_CLIENT.addBlips(config.locations);
 }
 
+let viewItem = null;
+
 on('onClientResourceStart', (name) => {
     if (name != GetCurrentResourceName())
         return;
@@ -71,9 +73,12 @@ setInterval(() => {
  * @event MRP_CLIENT.business#mrp:business:client:view
  * @type {object}
  * @property {Document} doc      document to view
+ * @property {Item} item         inventory item to view
  */
-onNet('mrp:business:client:view', (doc) => {
+onNet('mrp:business:client:view', (doc, item) => {
     MRP_CLIENT.setPlayerMetadata("inMenu", true);
+
+    viewItem = item;
 
     let canApprove = MRP_CLIENT.employment.hasRole(MRP_CLIENT.employment.CITY, MRP_CLIENT.employment.ROLE_JUDGE) ||
         MRP_CLIENT.employment.hasRole(MRP_CLIENT.employment.CITY, MRP_CLIENT.employment.ROLE_MAYOR);
@@ -91,6 +96,8 @@ RegisterNuiCallbackType('openFileForm');
 on('__cfx_nui:openFileForm', (data, cb) => {
     cb({});
 
+    viewItem = null;
+
     console.log('Open file form');
     MRP_CLIENT.setPlayerMetadata("inMenu", true);
 
@@ -104,6 +111,8 @@ on('__cfx_nui:openFileForm', (data, cb) => {
 RegisterNuiCallbackType('close');
 on('__cfx_nui:close', (data, cb) => {
     cb({});
+
+    viewItem = null;
 
     SetNuiFocus(false, false);
     MRP_CLIENT.setPlayerMetadata("inMenu", false);
@@ -121,6 +130,10 @@ on('__cfx_nui:approve', (data, cb) => {
     let ped = PlayerPedId();
     ClearPedTasks(ped);
     MRP_CLIENT.clearProps();
+
+    emitNet('mrp:business:server:approve', GetPlayerServerId(PlayerId()), data, viewItem);
+
+    viewItem = null;
 });
 
 let docData = null;
@@ -168,4 +181,5 @@ RegisterNuiCallbackType('business_proposal_cancel');
 on('__cfx_nui:business_proposal_cancel', (data, cb) => {
     cb({});
     docData = null;
+    viewItem = null;
 });

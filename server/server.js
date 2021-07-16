@@ -78,16 +78,71 @@ onNet('mrp:business:server:view', (source, data) => {
             return;
         }
 
-        emitNet('mrp:business:client:view', source, doc);
+        emitNet('mrp:business:client:view', source, doc, data);
     });
 });
+
+/**
+ * Create business event
+ * @event MRP_SERVER.business#mrp:business:server:create
+ * @type {object}
+ * @property {Document} doc      document that's used as a base for business creation
+ */
+onNet('mrp:business:server:create', (source, doc) => {
+    //create the actual business
+    MRP_SERVER.read('character', {
+        _id: doc.createdBy
+    }, (char) => {
+        if (!char) {
+            console.log(`Unable to find a character with id [${doc.createdBy}]`);
+            return;
+        }
+        let owner = char;
+
+        let business = {
+            name: doc.name,
+            type: doc.type,
+            note: doc.note,
+            roles: [{
+                name: config.ownerRole
+            }]
+        }
+
+        MRP_SERVER.create('business', business, (r) => {
+            if (r.insertedId) {
+                console.log(`Created business ${business.name}`);
+                emit('mrp:employment:server:addEmployment', source, char.stateId, r.insertedId, config.ownerRole);
+            }
+        });
+    });
+})
 
 /**
  * Approve document event
  * @event MRP_SERVER.business#mrp:business:server:approve
  * @type {object}
  * @property {Document} doc      document to approve
+ * @property {Item} item         item to approve and remove after
  */
-onNet('mrp:business:server:approve', (source, doc) => {
-    //TODO
+onNet('mrp:business:server:approve', (source, doc, item) => {
+    console.log(`Approve document ${JSON.stringify(doc)}`);
+    let approver = MRP_SERVER.getSpawnedCharacter(source);
+
+    data.approvedBy = approver._id;
+    data.approvedAt = Date.now();
+    MRP_SERVER.update('document', data, {
+        _id: data._id
+    }, null, (r) => {
+        console.log('Approved business proposal document');
+        emit('mrp:inventory:server:RemoveItem', 'businessproposal', 1, item.slot, {});
+
+        emit('mrp:business:server:create', source, doc);
+
+        emitNet('chat:addMessage', source, {
+            template: '<div class="chat-message nonemergency">{0}</div>',
+            args: [
+                locale.documentApproved
+            ]
+        });
+    });
 });
