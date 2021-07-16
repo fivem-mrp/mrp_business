@@ -36,6 +36,7 @@ $(document).ready(() => {
             approve() {
                 if (this.canApprove && this.doc) {
                     $('#business_proposal').hide();
+                    $.post('https://mrp_business/close', JSON.stringify({}));
                     //TODO
                 }
             },
