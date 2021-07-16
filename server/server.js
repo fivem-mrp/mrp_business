@@ -128,8 +128,8 @@ onNet('mrp:business:server:approve', (source, doc, item) => {
     console.log(`Approve document ${JSON.stringify(doc)}`);
     let approver = MRP_SERVER.getSpawnedCharacter(source);
 
-    data.approvedBy = approver._id;
-    data.approvedAt = Date.now();
+    doc.approvedBy = approver._id;
+    doc.approvedAt = Date.now();
     MRP_SERVER.update('document', doc, {
         _id: doc._id
     }, null, (r) => {
