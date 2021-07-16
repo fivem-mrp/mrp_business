@@ -1,3 +1,10 @@
+/**
+ * need to have module mrp_business loaded
+ * 
+ * @memberof MRP_SERVER
+ * @namespace business
+ */
+
 const config = require('./config/config.json');
 
 let localeConvar = GetConvar("mrp_locale", "en");
@@ -11,6 +18,14 @@ while (MRP_SERVER == null) {
     console.log('Waiting for shared object....');
 }
 
+/**
+ * Create document event
+ * @event MRP_SERVER.business#mrp:business:server:createDocument
+ * @type {object}
+ * @property {Document} data      document to create
+ * @fires MRP_SERVER.bankin#mrp:bankin:server:pay:cash
+ * @fires MRP_SERVER.inventory#mrp:inventory:server:AddItem
+ */
 onNet('mrp:business:server:createDocument', (source, data) => {
     if (!data) {
         console.log('Empty data object');
@@ -36,6 +51,13 @@ onNet('mrp:business:server:createDocument', (source, data) => {
     });
 });
 
+/**
+ * View document event
+ * @event MRP_SERVER.business#mrp:business:server:view
+ * @type {object}
+ * @property {Item} data      item of the document to view
+ * @fires MRP_CLIENT.business#mrp:business:client:view
+ */
 onNet('mrp:business:server:view', (source, data) => {
     if (!data || !data.info) {
         console.log('Invalid data object received');
@@ -58,4 +80,14 @@ onNet('mrp:business:server:view', (source, data) => {
 
         emitNet('mrp:business:client:view', source, doc);
     });
+});
+
+/**
+ * Approve document event
+ * @event MRP_SERVER.business#mrp:business:server:approve
+ * @type {object}
+ * @property {Document} doc      document to approve
+ */
+onNet('mrp:business:server:approve', (source, doc) => {
+    //TODO
 });

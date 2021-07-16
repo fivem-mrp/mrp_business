@@ -1,3 +1,10 @@
+/**
+ * need to have module mrp_business loaded
+ * 
+ * @memberof MRP_CLIENT
+ * @namespace business
+ */
+
 MRP_CLIENT = null;
 
 emit('mrp:employment:getSharedObject', obj => MRP_CLIENT = obj);
@@ -59,6 +66,12 @@ setInterval(() => {
     }
 }, 0);
 
+/**
+ * View document event
+ * @event MRP_CLIENT.business#mrp:business:client:view
+ * @type {object}
+ * @property {Document} doc      document to view
+ */
 onNet('mrp:business:client:view', (doc) => {
     MRP_CLIENT.setPlayerMetadata("inMenu", true);
 
@@ -90,6 +103,17 @@ on('__cfx_nui:openFileForm', (data, cb) => {
 
 RegisterNuiCallbackType('close');
 on('__cfx_nui:close', (data, cb) => {
+    cb({});
+
+    SetNuiFocus(false, false);
+    MRP_CLIENT.setPlayerMetadata("inMenu", false);
+    let ped = PlayerPedId();
+    ClearPedTasks(ped);
+    MRP_CLIENT.clearProps();
+});
+
+RegisterNuiCallbackType('approve');
+on('__cfx_nui:approve', (data, cb) => {
     cb({});
 
     SetNuiFocus(false, false);
