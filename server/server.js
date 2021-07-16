@@ -130,8 +130,8 @@ onNet('mrp:business:server:approve', (source, doc, item) => {
 
     data.approvedBy = approver._id;
     data.approvedAt = Date.now();
-    MRP_SERVER.update('document', data, {
-        _id: data._id
+    MRP_SERVER.update('document', doc, {
+        _id: doc._id
     }, null, (r) => {
         console.log('Approved business proposal document');
         emit('mrp:inventory:server:RemoveItem', 'businessproposal', 1, item.slot, {});
