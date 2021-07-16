@@ -112,6 +112,12 @@ onNet('mrp:business:server:create', (source, doc) => {
             if (r.insertedId) {
                 console.log(`Created business ${business.name}`);
                 emit('mrp:employment:server:addEmployment', source, char.stateId, r.insertedId, config.ownerRole);
+
+                MRP_SERVER.update('document', {
+                    businessId: r.insertedId
+                }, {
+                    _id: doc._id,
+                }, null, r => {});
             }
         });
     });
@@ -134,7 +140,7 @@ onNet('mrp:business:server:approve', (source, doc, item) => {
         _id: doc._id
     }, null, (r) => {
         console.log('Approved business proposal document');
-        emit('mrp:inventory:server:RemoveItem', 'businessproposal', 1, item.slot, {});
+        emit('mrp:inventory:server:RemoveItem', 'businessproposal', 1, item.slot, {}, source);
 
         emit('mrp:business:server:create', source, doc);
 
