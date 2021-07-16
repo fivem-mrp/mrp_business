@@ -9,9 +9,10 @@ $(document).ready(() => {
                 type: '',
                 creatorSurname: '',
                 creatorName: '',
-                canApprove: true, //TODO
+                canApprove: false,
                 approvalSignature: '',
                 view: 0,
+                doc: null,
                 typeOptions: {
                     delivery: "Delivery",
                     retail: "Retail"
@@ -32,6 +33,12 @@ $(document).ready(() => {
                     }));
                 }
             },
+            approve() {
+                if (this.canApprove && this.doc) {
+                    $('#business_proposal').hide();
+                    //TODO
+                }
+            },
             resetData() {
                 this.name = '';
                 this.note = '';
@@ -40,7 +47,7 @@ $(document).ready(() => {
                 this.creatorName = '';
                 this.creatorSurname = '';
                 this.approvalSignature = '';
-                this.canApprove = true; //TODO
+                this.canApprove = false;
             },
             handleMessage(eventData) {
                 switch (eventData.type) {
@@ -59,11 +66,13 @@ $(document).ready(() => {
                         if (!eventData.doc)
                             return;
 
+                        this.doc = eventData.doc;
                         this.view = 1;
 
                         this.name = eventData.doc.name;
                         this.note = eventData.doc.note;
                         this.type = eventData.doc.type;
+                        this.canApprove = eventData.canApprove;
                         let sign = eventData.doc.creatorSignature.split(' ');
                         this.creatorName = sign[0];
                         this.creatorSurname = sign[1];

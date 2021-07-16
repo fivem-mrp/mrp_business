@@ -1,6 +1,6 @@
 MRP_CLIENT = null;
 
-emit('mrp:getSharedObject', obj => MRP_CLIENT = obj);
+emit('mrp:employment:getSharedObject', obj => MRP_CLIENT = obj);
 
 while (MRP_CLIENT == null) {
     print('Waiting for shared object....');
@@ -62,10 +62,14 @@ setInterval(() => {
 onNet('mrp:business:client:view', (doc) => {
     MRP_CLIENT.setPlayerMetadata("inMenu", true);
 
+    let canApprove = MRP_CLIENT.employment.hasRole(MRP_CLIENT.employment.CITY, MRP_CLIENT.employment.ROLE_JUDGE) ||
+        MRP_CLIENT.employment.hasRole(MRP_CLIENT.employment.CITY, MRP_CLIENT.employment.ROLE_MAYOR);
+
     SetNuiFocus(true, true);
     SendNuiMessage(JSON.stringify({
         type: 'view',
         doc: doc,
+        canApprove: canApprove,
         char: MRP_CLIENT.GetPlayerData()
     }));
 });

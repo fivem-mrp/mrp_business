@@ -6,7 +6,8 @@ description 'MRP Business'
 version '0.0.1'
 
 dependencies {
-    "mrp_core"
+    "mrp_core",
+    "mrp_employment"
 }
 
 ui_page 'ui/index.html'
