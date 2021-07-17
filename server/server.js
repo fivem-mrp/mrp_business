@@ -113,6 +113,12 @@ onNet('mrp:business:server:create', (source, doc) => {
                 console.log(`Created business ${business.name}`);
                 emit('mrp:employment:server:addEmployment', source, char.stateId, r.insertedId, config.ownerRole);
 
+                emit('mrp:bankin:server:createAccount', source, {
+                    type: 'business',
+                    account_name: business.name,
+                    owner: doc.createdBy
+                }, 'no_need_for_uuid');
+
                 MRP_SERVER.update('document', {
                     businessId: r.insertedId
                 }, {
