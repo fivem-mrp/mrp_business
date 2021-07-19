@@ -104,7 +104,13 @@ onNet('mrp:business:server:create', (source, doc) => {
             type: doc.type,
             note: doc.note,
             roles: [{
-                name: config.ownerRole
+                name: config.ownerRole,
+                canHire: true,
+                canFire: true,
+                canAddRole: true,
+                canDeleteRole: true,
+                canChangeRole: true,
+                canPromote: true
             }]
         }
 
@@ -127,7 +133,28 @@ onNet('mrp:business:server:create', (source, doc) => {
             }
         });
     });
-})
+});
+
+/**
+ * Approve document event
+ * @event MRP_SERVER.business#mrp:business:server:update
+ * @type {object}
+ * @property {Business} business      business to update
+ */
+onNet('mrp:business:server:update', (source, business) => {
+    if (!business) {
+        console.log('Tried updating an empty business object');
+        return;
+    }
+    obj, q, opt, cb
+    MRP_SERVER.update('business', business, {
+        _id: business._id
+    }, null, (r) => {
+        if (r.modifiedCount < 1) {
+            console.log('Error updating business');
+        }
+    });
+});
 
 /**
  * Approve document event
