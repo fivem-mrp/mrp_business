@@ -141,7 +141,8 @@ onNet('mrp:business:server:create', (source, doc) => {
  * @type {object}
  * @property {Business} business      business to update
  */
-onNet('mrp:business:server:update', (source, business) => {
+onNet('mrp:business:server:update', (source, business, uuid) => {
+    console.log(`Update business ${JSON.stringify(business)}`);
     if (!business) {
         console.log('Tried updating an empty business object');
         return;
@@ -153,6 +154,7 @@ onNet('mrp:business:server:update', (source, business) => {
         if (r.modifiedCount < 1) {
             console.log('Error updating business');
         }
+        emitNet('mrp:business:server:update:response', source, r, uuid);
     });
 });
 
