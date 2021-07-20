@@ -146,7 +146,7 @@ onNet('mrp:business:server:update', (source, business) => {
         console.log('Tried updating an empty business object');
         return;
     }
-    obj, q, opt, cb
+
     MRP_SERVER.update('business', business, {
         _id: business._id
     }, null, (r) => {
