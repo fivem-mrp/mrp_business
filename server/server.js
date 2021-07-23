@@ -12,6 +12,11 @@ let locale = config.locale[localeConvar];
 
 MRP_SERVER = null;
 
+const BUSINESS_TYPES = {
+    DELIVERY: "Delivery",
+    RETAIL: "Retail"
+};
+
 emit('mrp:getSharedObject', obj => MRP_SERVER = obj);
 
 while (MRP_SERVER == null) {
@@ -110,8 +115,14 @@ onNet('mrp:business:server:create', (source, doc) => {
                 canAddRole: true,
                 canDeleteRole: true,
                 canChangeRole: true,
-                canPromote: true
+                canPromote: true,
+                canCreateJobs: true,
+                isDefault: false
             }]
+        };
+
+        if (doc.type == BUSINESS_TYPES.DELIVERY) {
+            business.canCreateJobs = true;
         }
 
         MRP_SERVER.create('business', business, (r) => {
