@@ -133,7 +133,7 @@ onNet('mrp:business:server:create', (source, doc) => {
                 emit('mrp:bankin:server:createAccount', source, {
                     type: 'business',
                     account_name: business.name,
-                    owner: doc.createdBy,
+                    owner: r.insertedId,
                     default: true
                 }, 'no_need_for_uuid');
 
