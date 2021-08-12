@@ -117,6 +117,7 @@ onNet('mrp:business:server:create', (source, doc) => {
                 canChangeRole: true,
                 canPromote: true,
                 canCreateJobs: true,
+                hasBankAccess: true,
                 isDefault: false
             }]
         };
