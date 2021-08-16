@@ -29,10 +29,7 @@ if (config.showBlips) {
 
 let viewItem = null;
 
-on('onClientResourceStart', (name) => {
-    if (name != GetCurrentResourceName())
-        return;
-
+onNet('mrp:spawn', () => {
     for (let location of config.locations) {
         MRP_CLIENT.spawnSharedNPC({
             model: location.ped,
