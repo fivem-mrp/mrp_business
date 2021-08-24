@@ -15,7 +15,8 @@ $(document).ready(() => {
                 doc: null,
                 typeOptions: {
                     delivery: "Delivery",
-                    retail: "Retail"
+                    retail: "Retail",
+                    cargo: "Cargo"
                 }
             }
         },

@@ -14,7 +14,8 @@ MRP_SERVER = null;
 
 const BUSINESS_TYPES = {
     DELIVERY: "Delivery",
-    RETAIL: "Retail"
+    RETAIL: "Retail",
+    CARGO: "Cargo"
 };
 
 emit('mrp:getSharedObject', obj => MRP_SERVER = obj);
@@ -122,7 +123,7 @@ onNet('mrp:business:server:create', (source, doc) => {
             }]
         };
 
-        if (doc.type == BUSINESS_TYPES.DELIVERY) {
+        if (doc.type == BUSINESS_TYPES.DELIVERY || doc.type == BUSINESS_TYPES.CARGO) {
             business.canCreateJobs = true;
         }
 
